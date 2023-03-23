@@ -1,7 +1,14 @@
-// import {
-//     BASE_URL,
-//     BASE_URL_CHARACTER,
-//     BASE_URL_EPISODES,
-//     BASE_URL_LOCATION
-// } from "../constants/ConstantApi";
+import {    
+    PATH_PERSON,
+    PATH_EXTENSION
+} from "../constants/ConstantApi";
+
+
+// PersonPage id
+export const personPageId = (url) => {
+    const id = url
+        .replace(PATH_PERSON, "")
+        .replace(PATH_EXTENSION, "")
+    return id;
+ };
 

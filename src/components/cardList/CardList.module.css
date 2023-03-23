@@ -28,6 +28,14 @@
 }
 
 .cardList_container__name {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 } 
+
+.cardList_container__modal{
+    background-color: transparent;
+    width: 100%;
+    position: relative;
+    
+
+}

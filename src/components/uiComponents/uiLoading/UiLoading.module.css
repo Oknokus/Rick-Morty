@@ -1,0 +1,15 @@
+.loading_container{
+    position: fixed;
+    background-color: transparent;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;   
+    margin-top: var(--spacing-vey-big-large);
+}
+
+.loading_container__img {    
+    filter: drop-shadow(10px 10px 10px #ffffff);
+}
+

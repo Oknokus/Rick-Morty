@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 
-import CardList from "../../components/cardList";
-
+import UiLoading from "../../components/uiComponents/uiLoading";
 
 import {getSwApiUrlData} from "../../utils/network";
 
@@ -14,11 +13,12 @@ import {
 // import styles from "./CardPage.module.css";
 
 
+const CardList = React.lazy(() => import("../../components/cardList"));
+
+
 const CardPage = () => {
   
-    const[characters, setCharacters] = useState([]);
-    // const[locations, setLocations] = useState([]);
-    // const[episodes, setEpisodess] = useState([]);
+    const[characters, setCharacters] = useState([]);  
 
     const getDataFeth = async(url) => {
         const dataCharacter = await getSwApiUrlData(url);      
@@ -48,8 +48,7 @@ const CardPage = () => {
                     type,               
                     url
                 }          
-            });
-            
+            });           
             setCharacters(cardList);            
         };
     };
@@ -59,10 +58,12 @@ const CardPage = () => {
     }, []);
 
     return(      
-        <>  
-            
-            <CardList characters={characters}/>            
+        <> 
+            <Suspense fallback={<UiLoading />}>
+                    <CardList characters={characters}/>  
+            </Suspense>                                   
         </>
+        
     )
 };
 
