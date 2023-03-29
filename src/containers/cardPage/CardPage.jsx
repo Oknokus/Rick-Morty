@@ -2,12 +2,12 @@ import React, { useEffect, useState, Suspense } from "react";
 
 import UiLoading from "../../components/uiComponents/uiLoading";
 
-import {getSwApiUrlData} from "../../utils/network";
-
 import {
     BASE_URL,
-    BASE_URL_CHARACTER   
+    BASE_URL_CHARACTER,
+    BASE_URL_PAGE
 } from "../../constants/ConstantApi";
+
 
 
 // import styles from "./CardPage.module.css";
@@ -16,51 +16,44 @@ import {
 const CardList = React.lazy(() => import("../../components/cardList"));
 
 
-const CardPage = () => {
-  
-    const[characters, setCharacters] = useState([]);  
+const CardPage = () => {    
+    const[cards, setCards] = useState([]);
+    const[currentPage, setCurrentPage] = useState(0);       
+    const[fetching, setFetching] = useState(true);     
+   
+    const scrollHanndler = (e) => {
+        if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+           setFetching(true);
+        }  
+    }
 
-    const getDataFeth = async(url) => {
-        const dataCharacter = await getSwApiUrlData(url);      
-        
-        if(dataCharacter) {
-            const cardList = dataCharacter.results.map(({ 
-                gender,               
-                id,              
-                image,               
-                location,               
-                name,             
-                origin,             
-                species,             
-                status,              
-                type,               
-                url
-            }) => {
-                return{
-                    gender,               
-                    id,              
-                    image,               
-                    location,               
-                    name,             
-                    origin,             
-                    species,             
-                    status,              
-                    type,               
-                    url
-                }          
-            });           
-            setCharacters(cardList);            
-        };
-    };
+    useEffect(()=> {
+        if(fetching) {
+        const data = fetch(`${BASE_URL}${BASE_URL_CHARACTER}${BASE_URL_PAGE}${currentPage}`)
+        .then(res => res.json())
+        .then(data => {
 
+            if(data) {         
+                setCards([...cards, ...data.results]);
+                setCurrentPage(prevState => prevState + 1);   
+            }           
+        })
+        .finally(() => setFetching(false))
+    }
+    }, [fetching])
+
+    
     useEffect(() => {
-        getDataFeth(BASE_URL+BASE_URL_CHARACTER)
-    }, []);
-
+        document.addEventListener("scroll", scrollHanndler)
+        return function () {
+            document.removeEventListener("scroll", scrollHanndler)
+            }
+    }, [])
+  
     return(      
         <> 
             <Suspense fallback={<UiLoading />}>
-                    <CardList characters={characters}/>  
+                    <CardList cards={cards}/>  
             </Suspense>                                   
         </>
         

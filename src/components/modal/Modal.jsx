@@ -6,57 +6,69 @@ import closeImg from "./img/closeImg.png";
 import styles from './Modal.module.css';
 
 
-const Modal = ({
-        modalActive,
-        setModalActive,
-        personName, 
-        personSrc,             
-        personGender,
-        personLocation,
-        personOrigin,
-        personSpecies,
-        personStatus
-    }) => {
-    const handleClickClose = () => {
-        setModalActive(false);
-    };
- 
-    return (        
-        <div className={modalActive ? styles.modal_container__active : styles.modal_container}>           
+const Modal = ({objCardsList, isOpen, setIsOpen, personFavorites}) => {     
+    const handeleClickModalClose = (e) => {
+        setIsOpen(false)
+        };
+    
+        const {
+            name,
+            image, 
+            id           
+        } =  objCardsList; 
+
+        const {          
+            episode,
+            gender,
+            location,
+            origin,
+            species,
+            status
+        } = personFavorites; 
+
+               
+    return ( 
+        <>  
+            <div className={isOpen ? styles.modal_container__active : styles.modal_container}>           
                 <div>
                     <img 
-                        src={closeImg} alt={personName}
+                        src={closeImg}
                         className={styles.modal_container__img} 
-                        onClick={handleClickClose } />                       
+                        onClick={handeleClickModalClose }/>                       
                 </div>
-
-                <div className={styles.modal_container__content}>
-             <div>
-                 <img className={styles.modal_container__personImg} src={personSrc} alt={personName} />  
-             </div>
-             <ul className={styles.modal_container__title}>
-                 <li className={styles.modal_container__span}>Name: <p className={styles.modal_container__p}>{personName}</p></li> 
-                 <li className={styles.modal_container__span}>Origin: <p className={styles.modal_container__p}>{personOrigin ==="unknown" ? "" : personOrigin}</p></li>
-                 <li className={styles.modal_container__span}>Status: <p className={styles.modal_container__p}>{personStatus ==="unknown" ? "" : personStatus}</p> </li>
-                 <li className={styles.modal_container__span}>Location: <p className={styles.modal_container__p}>{personLocation ==="unknown" ? "" : personLocation}</p> </li>
-                 <li className={styles.modal_container__span}>Species: <p className={styles.modal_container__p}>{personSpecies}</p></li>
-                 <li className={styles.modal_container__span}>Gender: <p className={styles.modal_container__p}>{personGender}</p></li>  
-             </ul>  
-     </div>          
-        </div>
-    )
-}
+                            <div className={styles.modal_container__content}>
+                                        <div key={personFavorites.id}>
+                                            <img 
+                                                className={styles.modal_container__personImg}
+                                                src={personFavorites.image}
+                                                alt={personFavorites.name}/>  
+                                        </div>
+                                        <ul className={styles.modal_container__ul}>
+                                            <li className={styles.modal_container__li}>                                               
+                                                <span className={styles.modal_container__span}>Name <p className={styles.modal_container__p}>{personFavorites.name}</p></span> 
+                                                <span className={styles.modal_container__span}>Gender <p className={styles.modal_container__p}>{gender}</p></span>                                           
+                                                <span className={styles.modal_container__span}>Species <p className={styles.modal_container__p}>{species}</p></span>
+                                                <span className={styles.modal_container__span}>Status <p className={styles.modal_container__p}>{status}</p></span>
+                                                {/* <span>Origin: <p className={styles.modal_container__p}>{origin.name}</p></span>  */}
+                                                {/* <span>Lcation: <p className={styles.modal_container__p}>{location.name}</p></span>  */}
+                                            </li>                                            
+                                        </ul>  
+                            </div> 
+            </div>
+        </>
+        )
+    };
+            
 
 Modal.propTypes = {
-    modalActive:PropTypes.bool,
-    setModalActive:PropTypes.func,
-    personName:PropTypes.string,
-    personSrc:PropTypes.string,           
-    personGender:PropTypes.string,
-    personLocation:PropTypes.string,
-    personOrigin:PropTypes.string,
-    personSpecies:PropTypes.string,
-    personStatus:PropTypes.string,
+    objCardsList:PropTypes.object,
+    isOpen:PropTypes.bool,
+    setIsOpen:PropTypes.func,
+    personFavorites:PropTypes.object
 };
 
 export default Modal;
+
+ 
+
+        

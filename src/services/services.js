@@ -1,14 +1,27 @@
 import {    
     PATH_PERSON,
-    PATH_EXTENSION
+    PATH_EXTENSION,
+    PAGE_QUERY_URL
 } from "../constants/ConstantApi";
 
 
-// PersonPage id
-export const personPageId = (url) => {
+// Person id
+export const personId = (url) => {
     const id = url
         .replace(PATH_PERSON, "")
         .replace(PATH_EXTENSION, "")
-    return id;
+    return Number(id);
  };
+
+//  Page now
+export const queryPage = (url) => {
+    const page = url
+        .replace(PAGE_QUERY_URL, "")
+    return Number(page);
+}
+
+
+
+          
+
 

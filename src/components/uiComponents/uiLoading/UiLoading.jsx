@@ -15,8 +15,5 @@ const UiLoading = () => {
     )
 }
 
-UiLoading.propTypes = {
-    
-}
-
 export default UiLoading;
+
