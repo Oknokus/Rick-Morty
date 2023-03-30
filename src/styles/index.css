@@ -9,6 +9,7 @@
     --spacing-medium: 15px;
     --spacing-large: 30px;
     --spacing-big-large: 50px;
+    --spacing-medium-very-large: 150px;
     --spacing-vey-big-large: 300px;
 
     --border-radius-smal: 7px;
@@ -28,5 +29,6 @@ body {
 	padding: 0;	    
 	background-color: var(--bg-color);	
 	background-size: cover;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;   
 }
+

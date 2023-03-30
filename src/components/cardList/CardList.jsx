@@ -2,25 +2,21 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import Modal from "../modal";
-
-import {personId} from "../../services/services";
+import UiLink from '../uiComponents/uiLink/UiLink';
 
 
 import styles from './CardList.module.css';
 
 
 const CardList = ({cards}) => {
-    const[isOpen, setIsOpen] = useState(false);
-    const[personId, setPersonId] = useState();
-    const[personFavorites, setPersonfavorites] = useState({})
-    
+    const[isOpen, setIsOpen] = useState(false);   
+    const[personFavorites, setPersonfavorites] = useState({})    
 
     const handeleClickModalOpen = (e) => {
-        setIsOpen(true);
-        setPersonId(e.currentTarget.id);
+        setIsOpen(true);       
         setPersonfavorites(cards[e.currentTarget.id-1])
     };
-   
+
     return (
         <>  
             <ul className={styles.cardList_container}>
@@ -34,14 +30,16 @@ const CardList = ({cards}) => {
                                 onClick={handeleClickModalOpen}
                                 alt={objCardsList.name}
                                 id={objCardsList.id}/>
-                            <span className={styles.cardList_container__name}>{objCardsList.name}</span> 
+                            <span className={styles.cardList_container__name}>{objCardsList.name}</span>
+                            
                         <Modal 
                             objCardsList={objCardsList} 
                             isOpen={isOpen}
                             setIsOpen={setIsOpen} 
                             personFavorites={personFavorites}/>
                     </li>
-                )}
+                )} 
+                    <UiLink/>              
             </ul>
         </>
     )

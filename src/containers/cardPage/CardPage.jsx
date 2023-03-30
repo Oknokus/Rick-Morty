@@ -2,6 +2,7 @@ import React, { useEffect, useState, Suspense } from "react";
 
 import UiLoading from "../../components/uiComponents/uiLoading";
 
+
 import {
     BASE_URL,
     BASE_URL_CHARACTER,
@@ -10,7 +11,7 @@ import {
 
 
 
-// import styles from "./CardPage.module.css";
+import styles from "./CardPage.module.css";
 
 
 const CardList = React.lazy(() => import("../../components/cardList"));
@@ -35,7 +36,7 @@ const CardPage = () => {
 
             if(data) {         
                 setCards([...cards, ...data.results]);
-                setCurrentPage(prevState => prevState + 1);   
+                setCurrentPage(prevState => prevState + 1);                 
             }           
         })
         .finally(() => setFetching(false))
@@ -49,12 +50,13 @@ const CardPage = () => {
             document.removeEventListener("scroll", scrollHanndler)
             }
     }, [])
-  
+   
     return(      
-        <> 
+        <>           
             <Suspense fallback={<UiLoading />}>
-                    <CardList cards={cards}/>  
-            </Suspense>                                   
+                <CardList cards={cards}/>  
+            </Suspense>               
+                                             
         </>
         
     )

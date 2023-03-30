@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types';
+import React, {useEffect, useState, Suspense} from 'react';
 
 import closeImg from "./img/closeImg.png";
 
+import UiLoading from '../uiComponents/uiLoading/UiLoading';
 
 import styles from './Modal.module.css';
 
 
-const Modal = ({objCardsList, isOpen, setIsOpen, personFavorites}) => {     
+const EpisodesPage = React.lazy(()=> import("../episodesPage"));
+
+
+const Modal = ({objCardsList, isOpen, setIsOpen, personFavorites}) => { 
+
+    const[listEpisodes, setListEpisodes] = useState([])  
+
     const handeleClickModalClose = (e) => {
-        setIsOpen(false)
+        setIsOpen(false);
+                  
         };
-    
+          
         const {
             name,
             image, 
@@ -25,10 +34,15 @@ const Modal = ({objCardsList, isOpen, setIsOpen, personFavorites}) => {
             species,
             status
         } = personFavorites; 
-
-               
-    return ( 
-        <>  
+        
+        useEffect(() => {
+            if(isOpen) {               
+                setListEpisodes(episode) 
+            }                
+        }, [episode]) 
+                      
+       
+    return (    
             <div className={isOpen ? styles.modal_container__active : styles.modal_container}>           
                 <div>
                     <img 
@@ -36,6 +50,7 @@ const Modal = ({objCardsList, isOpen, setIsOpen, personFavorites}) => {
                         className={styles.modal_container__img} 
                         onClick={handeleClickModalClose }/>                       
                 </div>
+                
                             <div className={styles.modal_container__content}>
                                         <div key={personFavorites.id}>
                                             <img 
@@ -43,19 +58,18 @@ const Modal = ({objCardsList, isOpen, setIsOpen, personFavorites}) => {
                                                 src={personFavorites.image}
                                                 alt={personFavorites.name}/>  
                                         </div>
-                                        <ul className={styles.modal_container__ul}>
-                                            <li className={styles.modal_container__li}>                                               
-                                                <span className={styles.modal_container__span}>Name <p className={styles.modal_container__p}>{personFavorites.name}</p></span> 
-                                                <span className={styles.modal_container__span}>Gender <p className={styles.modal_container__p}>{gender}</p></span>                                           
-                                                <span className={styles.modal_container__span}>Species <p className={styles.modal_container__p}>{species}</p></span>
-                                                <span className={styles.modal_container__span}>Status <p className={styles.modal_container__p}>{status}</p></span>
-                                                {/* <span>Origin: <p className={styles.modal_container__p}>{origin.name}</p></span>  */}
-                                                {/* <span>Lcation: <p className={styles.modal_container__p}>{location.name}</p></span>  */}
-                                            </li>                                            
-                                        </ul>  
+                                        <div className={styles.modal_container__ul}>
+                                            <div className={styles.modal_container__li}> 
+                                                <p className={styles.modal_container__p}>
+                                                    <b>Name: </b>{personFavorites.name}<br/><b>Gender: </b>{gender}<br/><b>Species: </b>{species}<br/><b>Status: </b>{status}
+                                                </p>                                  
+                                            </div>  
+                                            <Suspense fallback={<UiLoading />}>
+                                                <EpisodesPage listEpisodes={listEpisodes} />   
+                                            </Suspense>                                                                                    
+                                        </div>  
                             </div> 
-            </div>
-        </>
+            </div>                
         )
     };
             
