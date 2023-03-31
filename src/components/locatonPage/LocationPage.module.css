@@ -1,0 +1,23 @@
+.location_container{
+    padding: 0;
+}
+
+.location_container__li{
+    list-style-type: none;
+    margin-left: 0 auto;
+    text-align: left; 
+    display: flex;
+	flex-direction: column;    
+}
+
+.location_container__p{
+    font-size: 20px;
+    font-weight: 500;
+    margin: var(--spacing-small);
+    margin: var(--spacing-small);
+    background-color: var(--color-title-yellow);
+    box-shadow: var(--box-shadow);    
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-small);
+    text-align: center;
+}

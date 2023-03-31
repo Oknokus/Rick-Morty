@@ -1,4 +1,14 @@
-.cardList_container {
+
+.cardList_container__div{
+    display: flex;
+}
+
+.cardList_container__div_overFlow{
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.cardList_container{
     width: 1200px;
     margin: 0 auto;
     display: grid;
@@ -6,10 +16,10 @@
     grid-row-gap: var(--spacing-big-large);   
     grid-column-gap: var(--spacing-medium);   
     padding-top: var(--spacing-big-large);  
-    padding-left: 0;   
+    padding-left: 0;
 }
 
-.cardList_container__item {
+.cardList_container__item{
     width: 100%;   
     background-color: var(--color-white);
     text-align: center;  
@@ -17,17 +27,21 @@
     border-radius: var(--border-radius-smal);
     margin: 0 auto;
     box-shadow: var(--box-shadow);
+    position: relative;
+    display: block;
+    cursor: pointer;
 }
 
-.cardList_container__photo {
+.cardList_container__photo{
     width: 88%;
     border-radius: var(--border-radius-smal);
     height: 250px;
     transform: translateY(-15px);
     box-shadow: var(--box-shadow);
+    cursor: pointer;
 }
 
-.cardList_container__name {
+.cardList_container__name{
     font-size: 25px;
     font-weight: bold;
 } 

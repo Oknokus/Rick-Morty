@@ -1,19 +1,21 @@
-.episodes_container__conten{
-    
+.episodes_container{
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.episodes_container__content{
     display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	width: 100%;
 }
 
-
 .episodes_container__li{
     list-style-type: none;
+    padding-top: var(--spacing-medium);
     margin-left: 0 auto;
-    text-align: left; 
-    display: flex;
-	flex-direction: column;
-         
+    text-align: left;  
 }
 
 .episodes_container__span{
@@ -27,11 +29,13 @@
 }
 
 .episodes_container__p{
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
-    margin: var(--spacing-small);
-    background-color: var(--bg-color);
+    padding: var(--spacing-small);   
     box-shadow: var(--box-shadow);
-    border-radius: var(--border-radius-mediu);
+    background-color: transparent;
+    text-align: center;
+    background-color: var(--color-title);
+    margin: var(--spacing-small);
 }
 

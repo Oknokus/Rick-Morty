@@ -18,7 +18,7 @@ const CardList = ({cards}) => {
     };
 
     return (
-        <>  
+        <div className={!isOpen ? styles.cardList_container__div : styles.cardList_container__div &&  styles.cardList_container__div_overFlow}>  
             <ul className={styles.cardList_container}>
                 {cards.map((objCardsList) => 
                     <li  
@@ -38,10 +38,10 @@ const CardList = ({cards}) => {
                             setIsOpen={setIsOpen} 
                             personFavorites={personFavorites}/>
                     </li>
-                )} 
-                    <UiLink/>              
+                )}                                                
             </ul>
-        </>
+            {!isOpen && <UiLink/> }  
+        </div>
     )
 }
 
